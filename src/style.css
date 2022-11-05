@@ -1,0 +1,28 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  --primary-bg-color: #141414;
+  --secondary-bg-color: #232323;
+  --primary-text-color: #FFFFFF;
+  --secondary-text-color: #878787;
+  --primary-accent-color: #556CE5;
+  --secondary-accent-color: #48A5FF;
+  font-synthesis: none;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.seperator {
+  position: relative;
+  width: 750px;
+  border: 1px solid var(--secondary-bg-color);
+  margin-bottom: 40px;
+}

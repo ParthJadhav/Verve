@@ -1,0 +1,30 @@
+{
+  "name": "verve",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "tauri": "tauri",
+    "package-and-build": "yarn tauri build && rm -rf ./src-tauri/target/release/bundle/verve.dmg && create-dmg --volname Verve --volicon './src-tauri/icons/icon.icns' --background './src/dmg-background.png' --window-pos 200 120 --window-size 653 380 --icon-size 115 --icon 'verve.app' 180 189 --hide-extension 'Verve.app' --app-drop-link 460 185 ./src-tauri/target/release/bundle/verve.dmg ./src-tauri/target/release/bundle/macos/verve.app && open ./src-tauri/target/release/bundle/"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.1.0",
+    "hotkeys-js": "^3.10.1"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.1",
+    "@tauri-apps/cli": "^1.1.0",
+    "@tsconfig/svelte": "^3.0.0",
+    "@types/node": "^18.7.10",
+    "svelte": "^3.49.0",
+    "svelte-check": "^2.8.0",
+    "svelte-preprocess": "^4.10.7",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.2"
+  }
+}
