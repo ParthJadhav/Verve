@@ -53,15 +53,22 @@ pub(crate) mod utils {
     }
 
     fn get_icon_path(app_path: &str) -> String {
-        let plist = Value::from_file(app_path.to_owned() + &"/Contents/Info.plist").unwrap();
-        let icon_path = plist.as_dictionary().unwrap().get("CFBundleIconFile");
-        if icon_path.is_some() {
-            let icon_path = icon_path.unwrap().as_string().unwrap();
-            return app_path.to_owned() + &"/Contents/Resources/" + icon_path + &".icns";
-        } else {
-            return String::from("");
-        }
+        let plist = Value::from_file(app_path.to_owned() + &"/Contents/Info.plist");
+        match plist {
+            Ok(plist) => {
+                let icon_path = plist.as_dictionary().unwrap().get("CFBundleIconFile");
+                if icon_path.is_some() {
+                    let icon_path = icon_path.unwrap().as_string().unwrap();
+                    return app_path.to_owned() + &"/Contents/Resources/" + icon_path + &".icns";
+                } else {
+                    return String::from("");
+                }
+            }
+            Err(_) => {
+                return String::from("");
+            }
     }
+}
 
     pub fn convert_all_app_icons_to_png() {
         let result: Vec<String> = SearchBuilder::default()
