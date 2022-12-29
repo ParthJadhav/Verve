@@ -23,8 +23,10 @@ const app = new App({
     preferences.set(key, preferencesData[key]);
   });
 
-  await register('esc', () => {
-    appWindow.hide();
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      appWindow.hide();
+    }
   });
 
   // Listen for Menu Bar event to open preferences emitted from main.rs
