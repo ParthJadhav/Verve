@@ -52,6 +52,22 @@ To get Verve set up on your machine, you'll need to have Rust and Yarn installed
 
 If you encounter any issues, try running `yarn tauri build` after installing dependencies.
 
+## 🛠️ Building for Production
+
+### Adding Targets:
+
+```bash
+rustup target add aarch64-apple-darwin
+rustup target add x86_64-apple-darwin
+```
+
+### Building:
+```bash
+yarn package-and-build
+```
+
+This will create a production build of the app both `aarch64` & `x86_64` systems in the `src-tauri/target` directory.
+
 All contributions from the open-source community, individuals, and partners are welcomed. Our achievement is a result of your active participation.
 
 Checkout [Issues section](https://github.com/ParthJadhav/verve/issues) to find out what needs to be done.
