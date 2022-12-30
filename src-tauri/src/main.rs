@@ -6,6 +6,7 @@ use util::utils::{
     convert_all_app_icons_to_png, create_preferences_if_missing, get_icon, handle_input,
     launch_on_login, open_command,
 };
+use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
 fn create_system_tray() -> SystemTray {
     let quit = CustomMenuItem::new("Quit".to_string(), "Quit");
@@ -32,31 +33,33 @@ fn main() {
         ])
         .setup(|app| {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
-            app.get_window("main").unwrap().hide().unwrap();
+            let window = app.get_window("main").unwrap();
+            #[cfg(target_os = "macos")]
+            apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
+                .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
+            window.hide().unwrap();
             Ok(())
         })
         .system_tray(create_system_tray())
         .on_system_tray_event(|app, event| match event {
-            SystemTrayEvent::MenuItemClick { id, .. } => {
-                match id.as_str() {
-                    "Hide" => {
-                        let window = app.get_window("main").unwrap();
-                        window.hide().unwrap();
-                    }
-                    "Show" => {
-                        let window = app.get_window("main").unwrap();
-                        window.show().unwrap();
-                    }
-                    "Preferences" => {
-                        let window = app.get_window("main").unwrap();
-                        window.emit("PreferencesClicked", Some("Yes")).unwrap();
-                    }
-                    "Quit" => {
-                        std::process::exit(0);
-                    }
-                    _ => {}
+            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                "Hide" => {
+                    let window = app.get_window("main").unwrap();
+                    window.hide().unwrap();
                 }
-            }
+                "Show" => {
+                    let window = app.get_window("main").unwrap();
+                    window.show().unwrap();
+                }
+                "Preferences" => {
+                    let window = app.get_window("main").unwrap();
+                    window.emit("PreferencesClicked", Some("Yes")).unwrap();
+                }
+                "Quit" => {
+                    std::process::exit(0);
+                }
+                _ => {}
+            },
             _ => {}
         })
         .run(tauri::generate_context!())

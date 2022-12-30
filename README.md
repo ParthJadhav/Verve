@@ -18,10 +18,22 @@ To download Verve, visit the [releases section](https://github.com/ParthJadhav/v
 
 📌 It's worth noting that the default shortcut for opening Verve is `CMD + Shift + G`, and this can be changed from the preferences section within the app. This allows you to customize the app to your specific needs and preferences, making it even more convenient and easy to use.
 
+## 🎨 Themes
+
+Verve theme is stored in:
+
+`/Users/<Username>/Library/Application Support/com.parth-jadhav.verve/theme.json`
+
+Editing the theme file will change the theme of the app. Restart the app to see the changes.
+
+Download themes: [Themes](./docs/themes.md)
+
+Contributions would be amazing 👆
+
+
 ## 💫 Upcoming Features
 
 - Extension support [Linked Issue](https://github.com/ParthJadhav/verve/issues/13)
-- Let users theme the app by adding a customization interface in the Preferences window [Linked Issue](https://github.com/ParthJadhav/verve/issues/1)
 - Add a calculator feature that allows users to perform calculations and conversions using natural language input [Linked Issue](https://github.com/ParthJadhav/verve/issues/2)
 - Add a scroll feature to display all search results [Linked Issue](https://github.com/ParthJadhav/verve/issues/3)
 - Replace icons with generic extension-based icons [Linked Issue](https://github.com/ParthJadhav/verve/issues/4)

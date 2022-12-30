@@ -52,7 +52,7 @@
     .Settings {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: 352px;
         background: var(--primary-bg-color);
         border-radius: 10px;
         align-items: center;

@@ -15,11 +15,11 @@
   let executionTime: number = 0;
 
   document.onkeyup = function (event) {
-        if (event.metaKey && event.key === ",") {
-            appState.app = false;
-            appState.settings = true;
-        }
-    };
+    if (event.metaKey && event.key === ",") {
+      appState.app = false;
+      appState.settings = true;
+    }
+  };
 
   const onBlur = async () => {
     await appWindow.hide();
@@ -73,19 +73,19 @@
   };
 </script>
 
-<svelte:window on:blur={onBlur} />
+<svelte:window on:blur={onBlur}/>
 
 <main class="container">
   {#if appState.app}
     <!-- svelte-ignore empty-block -->
     {#await appWindow.setSize(new LogicalSize(750, 100))}{/await}
-    <SearchBar on:input={handleInput}/>
+    <SearchBar on:input={handleInput} />
     <SearchResult {results} on:click={searchResultClicked} />
     <Footer {footerText} />
   {/if}
   {#if appState.settings}
     <!-- svelte-ignore empty-block -->
-    {#await appWindow.setSize(new LogicalSize(750, 400))}{/await}
+    {#await appWindow.setSize(new LogicalSize(750, 352))}{/await}
     <Settings />
   {/if}
 </main>
@@ -94,7 +94,7 @@
   .container {
     height: 100%;
     width: 750px;
-    background: var(--primary-bg-color);
+    background-color: var(--primary-bg-color);
     border-radius: 10px;
   }
 </style>

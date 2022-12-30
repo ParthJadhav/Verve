@@ -27,9 +27,10 @@
         width: 100%;
         height: 56px;
         border-radius: 8px 8px 0px 0px;
-        background: var(--secondary-bg-color);
+        background: var(--dark-overlay);
         padding-left: 16px;
         border: none;
+        border-bottom: 1px solid var(--highlight-overlay);
         font-family: Helvetica;
         font-style: normal;
         color: var(--primary-text-color);
@@ -42,7 +43,7 @@
     #searchBarForm {
         width: 733px;
         height: 56px;
-        background: var(--secondary-bg-color);
+        background: transparent;
         border-radius: 10px;
         border: none;
     }

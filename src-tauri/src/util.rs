@@ -15,6 +15,18 @@ pub(crate) mod utils {
     use strsim::jaro_winkler;
 
     #[derive(Serialize, Deserialize)]
+    struct Theme {
+        primary_bg_color: String,
+        secondary_bg_color: String,
+        primary_text_color: String,
+        secondary_text_color: String,
+        primary_accent_color: String,
+        secondary_accent_color: String,
+        highlight_overlay: String,
+        dark_overlay: String,
+    }
+
+    #[derive(Serialize, Deserialize)]
     struct Preferences {
         shortcut: String,
         launch_on_login: bool,
@@ -94,6 +106,7 @@ pub(crate) mod utils {
     pub fn create_preferences_if_missing() {
         if let Some(proj_dirs) = ProjectDirs::from("com", "parth jadhav", "verve") {
             let preferences_path = proj_dirs.config_dir().join("preferences.json");
+            let theme_path = proj_dirs.config_dir().join("theme.json");
             if !preferences_path.exists() {
                 let preference = Preferences {
                     shortcut: String::from("Command+Shift+G"),
@@ -101,8 +114,21 @@ pub(crate) mod utils {
                     menu_bar_icon: true,
                 };
                 let preference_text = serde_json::to_string(&preference).unwrap();
-                println!("{}", preference_text);
                 fs::write(preferences_path, &preference_text).unwrap();
+            }
+            if !theme_path.exists() {
+                let theme = Theme {
+                    primary_bg_color: String::from("rgba(20, 20, 30, 0.6)"),
+                    secondary_bg_color: String::from("rgba(84, 101, 115, 0.6)"),
+                    primary_text_color: String::from("#FFFFFF"),
+                    secondary_text_color: String::from("#878787"),
+                    primary_accent_color: String::from("#556CE5"),
+                    secondary_accent_color: String::from("#48A5FF"),
+                    highlight_overlay: String::from("rgba(255, 255, 255, 0.1)"),
+                    dark_overlay: String::from("rgba(0, 0, 0, 0.1)"),
+                };
+                let theme_text = serde_json::to_string(&theme).unwrap();
+                fs::write(theme_path, &theme_text).unwrap();
             }
         }
     }
@@ -124,7 +150,12 @@ pub(crate) mod utils {
         });
     }
 
-    fn search(input: &str, search_locations: Vec<&str>, extension: Option<&str>, depth: Option<usize>) -> Vec<String> {
+    fn search(
+        input: &str,
+        search_locations: Vec<&str>,
+        extension: Option<&str>,
+        depth: Option<usize>,
+    ) -> Vec<String> {
         let (location, more_locations) = search_locations.split_first().unwrap();
         let mut result: Vec<String> = SearchBuilder::default()
             .search_input(input)
@@ -157,20 +188,17 @@ pub(crate) mod utils {
             );
             similarity_sort(&mut result, input.as_str());
         } else {
-                result = search(
-                    input.trim_start_matches("/"),
-                    vec![
-                        "/Users/"
-                    ],
-                    None,
-                    Some(10000)
-                );
-                println!("{:?}", result);
+            result = search(
+                input.trim_start_matches("/"),
+                vec!["/Users/"],
+                None,
+                Some(10000),
+            );
+            println!("{:?}", result);
         }
         let time_taken = start_time.elapsed().as_secs_f32();
         return (result, time_taken);
     }
-
 
     #[tauri::command]
     pub fn get_icon(app_name: &str) -> String {
