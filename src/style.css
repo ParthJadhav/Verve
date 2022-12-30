@@ -1,7 +1,9 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  --primary-bg-color: #141414;
-  --secondary-bg-color: #232323;
+  --primary-bg-color: rgba(20, 20, 30, 0.6);
+  --highlight-overlay: rgba(255, 255, 255, 0.1);
+  --dark-overlay: rgba(0, 0, 0, 0.1);
+  --secondary-bg-color: rgba(84, 101, 115, 0.6);
   --primary-text-color: #FFFFFF;
   --secondary-text-color: #878787;
   --primary-accent-color: #556CE5;
@@ -23,6 +25,6 @@ body {
 .seperator {
   position: relative;
   width: 750px;
-  border: 1px solid var(--secondary-bg-color);
+  border: 1px solid var(--highlight-overlay);
   margin-bottom: 40px;
 }

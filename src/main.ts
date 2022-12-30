@@ -14,14 +14,30 @@ const app = new App({
   target: document.getElementById("app"),
 });
 
-(async () => {
-  // get and set values
-  paths.set("appDataDirPath", await appDataDir());
-
+const fetchPreferencesData = async () => {
   const preferencesData = await readTextFile(await join(paths.get("appDataDirPath"), `preferences.json`)).then((data) => JSON.parse(data));
   Object.keys(preferencesData).forEach((key) => {
     preferences.set(key, preferencesData[key]);
   });
+}
+
+const reloadTheme = async () => {
+  const theme = await readTextFile(await join(paths.get("appDataDirPath"), `theme.json`)).then((data) => JSON.parse(data));
+  // @ts-ignore
+  const style = document.styleSheets[0].cssRules[0].style;
+  style.setProperty("--primary-bg-color", theme.primary_bg_color);
+  style.setProperty("--secondary-bg-color", theme.secondary_bg_color);
+  style.setProperty("--primary-text-color", theme.primary_text_color);
+  style.setProperty("--secondary-text-color", theme.secondary_text_color);
+  style.setProperty("--primary-accent-color", theme.primary_accent_color);
+  style.setProperty("--secondary-accent-color", theme.secondary_accent_color);
+}
+
+(async () => {
+  // get and set values
+  paths.set("appDataDirPath", await appDataDir());
+  await fetchPreferencesData();
+  await reloadTheme();
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
