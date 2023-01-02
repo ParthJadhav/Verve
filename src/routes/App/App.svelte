@@ -11,8 +11,9 @@
     settings: false,
   };
   let results: string[] = [];
-  let footerText: string = "verve.app";
   let executionTime: number = 0;
+  let resultType: number = 0;
+  let footerText: string = "verve.app";
 
   document.onkeyup = function (event) {
     if (event.metaKey && event.key === ",") {
@@ -39,11 +40,15 @@
 
   const search = async (searchPrompt: string) => {
     footerText = "Loading...";
-    [results, executionTime] = await invoke("handle_input", {
+    [results, executionTime, resultType] = await invoke("handle_input", {
       input: searchPrompt,
     });
     if (results.length === 0) {
       footerText = "No results found";
+      return;
+    }
+    if (resultType === 3) {
+      footerText = "Copy Answer ⏎";
       return;
     }
     footerText = `~ ${Math.floor(executionTime * 1000)} ms`;
@@ -52,7 +57,7 @@
   document.addEventListener("keydown", async (event: any) => {
     if (event.keyCode == 13) {
       event.preventDefault();
-      if (event.target.value.startsWith("/")) {
+      if (event.target?.value?.startsWith("/")) {
         search(event.target.value);
       }
     }
@@ -73,14 +78,14 @@
   };
 </script>
 
-<svelte:window on:blur={onBlur}/>
+<svelte:window on:blur={onBlur} />
 
 <main class="container">
   {#if appState.app}
     <!-- svelte-ignore empty-block -->
     {#await appWindow.setSize(new LogicalSize(750, 100))}{/await}
     <SearchBar on:input={handleInput} />
-    <SearchResult {results} on:click={searchResultClicked} />
+    <SearchResult bind:results {resultType} on:click={searchResultClicked} />
     <Footer {footerText} />
   {/if}
   {#if appState.settings}

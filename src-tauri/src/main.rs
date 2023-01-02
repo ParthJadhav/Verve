@@ -2,7 +2,7 @@ mod util;
 use tauri::{
     CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
 };
-use util::utils::{
+use util::{
     convert_all_app_icons_to_png, create_preferences_if_missing, get_icon, handle_input,
     launch_on_login, open_command,
 };

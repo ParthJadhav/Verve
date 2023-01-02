@@ -1,11 +1,12 @@
 <script lang="ts">
   export let results: string[];
+  export let resultType: number;
 
   import { appDataDir, join, resolveResource } from "@tauri-apps/api/path";
   import { convertFileSrc } from "@tauri-apps/api/tauri";
   import { appWindow, LogicalSize } from "@tauri-apps/api/window";
   import { afterUpdate } from "svelte";
-  import { preferences } from "../../../cache.js";
+  import CalculationResult from "./CalculationResult.svelte";
 
   afterUpdate(async () => {
     const height = document.getElementsByClassName("container")[0].clientHeight;
@@ -78,25 +79,29 @@
 
 <div class="searchResults">
   {#if results.length > 0 && results[0] !== " "}
-    {#each results.slice(0, 5) as result}
-      <button on:click class="searchResult" id={result}>
-        {#await getIcon(result
-            .split("/")
-            .pop()
-            .replace(/.app$/, "")) then { icon, fallbackIcon }}
-          <img
-            class="appIcon"
-            src={icon}
-            alt=""
-            on:error={(event) => {
-              // @ts-ignore
-              event.target.src = fallbackIcon;
-            }}
-          />
-        {/await}
-        <p class="appName">{result.split("/").pop().replace(/.app$/, "")}</p>
-      </button>
-    {/each}
+    {#if resultType !== 3}
+      {#each results.slice(0, 5) as result}
+        <button on:click class="searchResult" id={result}>
+          {#await getIcon(result
+              .split("/")
+              .pop()
+              .replace(/.app$/, "")) then { icon, fallbackIcon }}
+            <img
+              class="appIcon"
+              src={icon}
+              alt=""
+              on:error={(event) => {
+                // @ts-ignore
+                event.target.src = fallbackIcon;
+              }}
+            />
+          {/await}
+          <p class="appName">{result.split("/").pop().replace(/.app$/, "")}</p>
+        </button>
+      {/each}
+    {:else}
+      <CalculationResult bind:results/>
+    {/if}
   {/if}
 </div>
 
