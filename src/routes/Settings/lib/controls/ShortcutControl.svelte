@@ -2,7 +2,7 @@
     import hotkeys from "hotkeys-js";
     import { preferences, paths } from "../../../../cache";
     import { writeTextFile } from "@tauri-apps/api/fs";
-    import { changeAppHotkey } from "../../../../main";
+    import { listenForHotkey } from "../../../../main";
     import { unregister } from "@tauri-apps/api/globalShortcut";
 
     let shortcutArray: string[] = preferences.get("shortcut").split("+");
@@ -27,7 +27,7 @@
         ).then(() => {
             unregister(preferences.get("shortcut")).then(() => {
                 preferences.set("shortcut", newShortcutString);
-                changeAppHotkey(newShortcutString);
+                listenForHotkey(newShortcutString);
             });
         });
     }
@@ -40,16 +40,28 @@
                 if (shortcutArray.length < 3) {
                     if (shortcutArray.length === 0) {
                         if (modifiers.includes(event.key)) {
-                            shortcutArray.push(event.key);
+                            if (event.key === " "){
+                                shortcutArray.push("Space");
+                            } else {
+                                shortcutArray.push(event.key);
+                            }
                             shortcutArray = shortcutArray;
                         }
                     } else {
                         if (!modifiers.includes(event.key)) {
-                            shortcutArray.push(event.key);
+                            if (event.key === " "){
+                                shortcutArray.push("Space");
+                            } else {
+                                shortcutArray.push(event.key);
+                            }
                             updateShortcutPreference(shortcutArray);
                             hotkeys.unbind();
                         } else {
-                            shortcutArray.push(event.key);
+                            if (event.key === " "){
+                                shortcutArray.push("Space");
+                            } else {
+                                shortcutArray.push(event.key);
+                            }
                         }
                         shortcutArray = shortcutArray.filter(
                             (value, index, self) => {
@@ -64,7 +76,7 @@
             }
             if (event.type === "keyup") {
                 if (shortcutArray.length === 1) {
-                    shortcutArray = ["Command", "G"];
+                    shortcutArray = ["Command", "Shift", "G"];
                     updateShortcutPreference(shortcutArray);
                     hotkeys.unbind();
                 } else if (shortcutArray.length > 1) {

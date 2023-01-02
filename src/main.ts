@@ -53,7 +53,6 @@ const reloadTheme = async () => {
         settings: true
       }
     });
-    appWindow.show();
   });
 
 
@@ -61,18 +60,18 @@ const reloadTheme = async () => {
     enable: preferences.get("launch_on_login"),
   });
 
-  await changeAppHotkey(preferences.get("shortcut"));
+  await listenForHotkey(preferences.get("shortcut"));
 })();
 
-export async function changeAppHotkey(shortcut: string) {
+export async function listenForHotkey(shortcut: string) {
   await register(shortcut, async () => {
     if (document.hasFocus()) {
       await appWindow.hide()
     } else {
-      await appWindow.show()
-      await appWindow.center()
-      await appWindow.setFocus()
-      document.getElementById('searchBarInput').focus()
+      await appWindow.show();
+      await appWindow.center();
+      await appWindow.setFocus();
+      document.getElementById('searchBarInput').focus();
     }
   })
 }
