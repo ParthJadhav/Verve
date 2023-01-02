@@ -50,10 +50,13 @@ fn main() {
                 "Show" => {
                     let window = app.get_window("main").unwrap();
                     window.show().unwrap();
+                    window.center().unwrap();
                 }
                 "Preferences" => {
                     let window = app.get_window("main").unwrap();
                     window.emit("PreferencesClicked", Some("Yes")).unwrap();
+                    window.show().unwrap();
+                    window.center().unwrap();
                 }
                 "Quit" => {
                     std::process::exit(0);
