@@ -1,16 +1,23 @@
+# Verve
+
 ![Verve App Logo](./docs/Banner-Image.png)
 
 Verve is a lightweight and blazingly fast launcher for accessing and opening applications, files and documents. It serves as a replacement for popular tools such as Spotlight, Raycast, and Alfred, and is written in the Rust programming language using the Tauri Framework.
 
 🚧 Despite being in the early stages of development, Verve is already showing great promise as a reliable and efficient tool for organizing and accessing important information on your computer. We are actively seeking contributors to help us continue improving and expanding the capabilities of Verve. If you are interested in getting involved and making a positive impact on this exciting project, we welcome your participation.
 
-## 📥 Preview
+#### [📥 Download Verve](#📥-downloading)
+
+## ⛰️ Preview
 
 <small>If preview is not loaded, please visit here [preview gif](./docs/preview.gif).</small>
 
 ![Verve App Preview](./docs/preview.gif)
-<img src="./docs/app.png" alt="drawing" width="620"/>
 <img src="./docs/preferences.png" alt="drawing" width="620"/>
+
+## 🚀 Features
+<img src="https://user-images.githubusercontent.com/42001064/210351599-bc19bd5b-2872-4bed-80fc-b687508a6faa.png" alt="drawing" width="620"/>
+
 
 ## 📥 Downloading
 
@@ -29,7 +36,6 @@ Editing the theme file will change the theme of the app. Restart the app to see 
 Download themes: [Themes](./docs/themes.md)
 
 Contributions would be amazing 👆
-
 
 ## 💫 Upcoming Features
 
@@ -66,14 +72,15 @@ If you encounter any issues, try running `yarn tauri build` after installing dep
 
 ## 🛠️ Building for Production
 
-### Adding Targets:
+### Adding Targets
 
 ```bash
 rustup target add aarch64-apple-darwin
 rustup target add x86_64-apple-darwin
 ```
 
-### Building:
+### Building
+
 ```bash
 yarn package-and-build
 ```
