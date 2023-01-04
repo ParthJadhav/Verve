@@ -2,12 +2,6 @@ use rust_search::SearchBuilder;
 use std::path::Path;
 use strsim::jaro_winkler;
 
-pub enum ResultType {
-    Applications = 1,
-    Files = 2,
-    Calculation = 3,
-}
-
 fn file_name_from_path(path: &str) -> String {
     let path = Path::new(path);
     let file_name = path.file_name().unwrap().to_str().unwrap();

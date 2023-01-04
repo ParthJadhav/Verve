@@ -47,6 +47,7 @@ fn get_icon_path(app_path: &str) -> String {
                 let icon_path = icon_path.unwrap().as_string().unwrap();
                 return app_path.to_owned() + &"/Contents/Resources/" + icon_path + &".icns";
             }
+
             return String::from("");
         }
         Err(_) => {

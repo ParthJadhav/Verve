@@ -14,6 +14,21 @@ struct Theme {
     dark_overlay: String,
 }
 
+impl Default for Theme {
+    fn default() -> Self {
+        Self {
+            primary_bg_color: String::from("rgba(20, 20, 30, 0.6)"),
+            secondary_bg_color: String::from("rgba(84, 101, 115, 0.6)"),
+            primary_text_color: String::from("#FFFFFF"),
+            secondary_text_color: String::from("#878787"),
+            primary_accent_color: String::from("#556CE5"),
+            secondary_accent_color: String::from("#48A5FF"),
+            highlight_overlay: String::from("rgba(255, 255, 255, 0.1)"),
+            dark_overlay: String::from("rgba(0, 0, 0, 0.1)"),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize)]
 struct Preferences {
     shortcut: String,
@@ -35,16 +50,7 @@ pub fn create_preferences_if_missing() {
             fs::write(preferences_path, &preference_text).unwrap();
         }
         if !theme_path.exists() {
-            let theme = Theme {
-                primary_bg_color: String::from("rgba(20, 20, 30, 0.6)"),
-                secondary_bg_color: String::from("rgba(84, 101, 115, 0.6)"),
-                primary_text_color: String::from("#FFFFFF"),
-                secondary_text_color: String::from("#878787"),
-                primary_accent_color: String::from("#556CE5"),
-                secondary_accent_color: String::from("#48A5FF"),
-                highlight_overlay: String::from("rgba(255, 255, 255, 0.1)"),
-                dark_overlay: String::from("rgba(0, 0, 0, 0.1)"),
-            };
+            let theme = Theme::default();
             let theme_text = serde_json::to_string(&theme).unwrap();
             fs::write(theme_path, &theme_text).unwrap();
         }
