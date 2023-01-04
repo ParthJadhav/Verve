@@ -40,14 +40,15 @@
         "asset": true,
         "assetScope": [
           "$APPDATA/appIcons/*",
-          "$RESOURCE/assets/*"
+          "$RESOURCE/assets/*",
+          "$RESOURCE/assets/*/*"
         ]
       }
     },
     "bundle": {
       "active": true,
       "category": "Productivity",
-      "copyright": "",
+      "copyright": "com.parth-jadhav.verve",
       "deb": {
         "depends": []
       },
@@ -60,7 +61,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.parth-jadhav.verve",
-      "longDescription": "",
+      "longDescription": "Verve is a lightweight and blazingly fast launcher for accessing and opening applications, files and documents. It serves as a replacement for popular tools such as Spotlight, Raycast, and Alfred, and is written in the Rust programming language using the Tauri Framework.",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
