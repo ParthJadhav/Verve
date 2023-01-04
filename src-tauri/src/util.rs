@@ -2,16 +2,19 @@ mod calculator;
 mod icons;
 mod preferences;
 mod search;
-use std::process::Command;
+
 extern crate directories;
-use directories::ProjectDirs;
 extern crate plist;
+
+use std::{process::Command, time::Instant};
+
+use directories::ProjectDirs;
 use auto_launch::AutoLaunchBuilder;
 use calculator::calculate;
+
 pub use icons::convert_all_app_icons_to_png;
 pub use preferences::create_preferences_if_missing;
 pub use search::{search, similarity_sort, ResultType};
-use std::time::Instant;
 
 #[tauri::command]
 pub async fn handle_input(input: String) -> (Vec<String>, f32, i32) {
@@ -59,12 +62,11 @@ pub fn get_icon(app_name: &str) -> String {
         let icon_path = icon_dir.join(app_name.to_owned() + &".png");
         if icon_path.exists() {
             return icon_path.to_str().unwrap().to_owned();
-        } else {
-            return String::from("");
         }
-    } else {
         return String::from("");
+
     }
+    return String::from("");
 }
 
 #[tauri::command]
