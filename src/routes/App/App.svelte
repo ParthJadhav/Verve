@@ -64,7 +64,6 @@
   });
 
   const handleInput = async (event: any) => {
-    results = [];
     if (event.target.value === "") {
       footerText = "verve.app";
       return;

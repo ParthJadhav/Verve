@@ -13,6 +13,7 @@
     await appWindow.setSize(new LogicalSize(750, height));
     if (results.length > 0 && results[0] !== "") {
       const firstResult = document.getElementById(results[0]);
+      firstResult.classList.add('searchResultFocused');
       await firstResult.focus();
     }
   });
@@ -58,6 +59,8 @@
         else newIndex = (currentIndex + 1) % items.length;
       }
       if (current !== null && items[newIndex] !== null) {
+        items[newIndex].classList.add('searchResultFocused');
+        current.classList.remove('searchResultFocused');
         current.blur();
         items[newIndex].focus();
       }
@@ -85,7 +88,12 @@
           {#await getIcon(result
               .split("/")
               .pop()
-              .replace(/.app$/, "")) then { icon, fallbackIcon }}
+              .replace(/.app$/, ""))}
+            <span
+              class="appIcon"
+              alt=""
+            />
+          {:then {icon, fallbackIcon}}
             <img
               class="appIcon"
               src={icon}
@@ -123,12 +131,14 @@
     order: 1;
     flex-grow: 0;
   }
-  .searchResult:focus {
-    background: var(--highlight-overlay);
-    outline: 0;
+
+  :global(.searchResultFocused) {
+    background: var(--highlight-overlay) !important;
+    outline: 0 !important;
   }
 
   .appIcon {
+    display: inline-flex;
     width: 24px;
     height: 24px;
     margin-right: 8px;
