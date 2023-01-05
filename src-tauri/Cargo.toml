@@ -1,6 +1,6 @@
 [package]
 name = "verve"
-version = "0.2.0"
+version = "0.3.1"
 description = "Verve is a lightweight and blazingly fast launcher for accessing and opening applications, files and documents."
 authors = ["jadhavparth99@gmail.com"]
 license = "GNU AFFERO GENERAL PUBLIC LICENSE"
