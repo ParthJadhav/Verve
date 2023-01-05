@@ -6,6 +6,7 @@
   import { convertFileSrc } from "@tauri-apps/api/tauri";
   import { appWindow, LogicalSize } from "@tauri-apps/api/window";
   import { afterUpdate } from "svelte";
+  import { FALLBACK_ICON_SYMBOL, icons } from "../../../cache";
   import CalculationResult from "./CalculationResult.svelte";
 
   afterUpdate(async () => {
@@ -19,9 +20,21 @@
   });
 
   async function getIcon(app_name: string) {
-    const fallbackIcon = convertFileSrc(
-      await resolveResource("assets/default.svg")
-    );
+    let icon = icons.get(app_name);
+    let fallbackIcon = icons.get(FALLBACK_ICON_SYMBOL);
+
+    if (icon && fallbackIcon) {
+      return { icon, fallbackIcon };
+    }
+
+    if (!fallbackIcon) {
+      fallbackIcon = convertFileSrc(
+        await resolveResource("assets/default.svg")
+      );
+      icons.set(FALLBACK_ICON_SYMBOL, fallbackIcon);
+    }
+
+    let iconPath: string;
     if (
       [
         "Migration Assistant",
@@ -32,14 +45,17 @@
         "AirPort Utility",
       ].includes(app_name)
     ) {
-      const icon_path = await resolveResource(
+      iconPath = await resolveResource(
         `assets/appIcons/${app_name}.app.png`
       );
-      return { icon: convertFileSrc(icon_path), fallbackIcon };
+    } else {
+      const appDataDirPath = await appDataDir();
+      iconPath = await join(appDataDirPath, `appIcons/${app_name}.app.png`);
     }
-    const appDataDirPath = await appDataDir();
-    const filePath = await join(appDataDirPath, `appIcons/${app_name}.app.png`);
-    return { icon: convertFileSrc(filePath), fallbackIcon };
+
+    icon = convertFileSrc(iconPath);
+    icons.set(app_name, icon);
+    return { icon, fallbackIcon };
   }
 
   async function handleKeydown(event) {
