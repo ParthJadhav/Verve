@@ -89,10 +89,7 @@
               .split("/")
               .pop()
               .replace(/.app$/, ""))}
-            <span
-              class="appIcon"
-              alt=""
-            />
+            <span class="appIcon"></span>
           {:then {icon, fallbackIcon}}
             <img
               class="appIcon"
