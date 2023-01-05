@@ -10,9 +10,13 @@ pub fn calculate(input: &str) -> String {
         Some(tz) => match tz.parse::<Tz>() {
             Ok(tz) => {
                 let date_time = Local::now().date_naive();
-                tz.offset_from_utc_date(&date_time)
+                let mut offset = tz.offset_from_utc_date(&date_time)
                     .abbreviation()
-                    .to_string()
+                    .to_string();
+                if offset.starts_with('+') || offset.starts_with('-') {
+                    offset.insert_str(0, "GMT");
+                }
+                offset
             }
             Err(_) => "UTC".to_string(),
         },
