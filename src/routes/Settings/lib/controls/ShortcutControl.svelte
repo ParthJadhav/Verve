@@ -35,6 +35,8 @@
     async function recordShortcut() {
         shortcutArray = [];
         hotkeys.unbind();
+        // Prevent closing Preferences when recording already registered shortcut
+        unregister(preferences.get("shortcut"));
         hotkeys("*", { keyup: true }, function (event) {
             if (event.type === "keydown") {
                 if (shortcutArray.length < 3) {
@@ -52,7 +54,7 @@
                             if (event.key === " "){
                                 shortcutArray.push("Space");
                             } else {
-                                shortcutArray.push(event.key);
+                                shortcutArray.push(event.code.substring(3));
                             }
                             updateShortcutPreference(shortcutArray);
                             hotkeys.unbind();
