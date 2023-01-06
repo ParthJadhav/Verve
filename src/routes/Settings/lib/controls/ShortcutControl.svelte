@@ -51,11 +51,10 @@
                         }
                     } else {
                         if (!modifiers.includes(event.key)) {
-                            if (event.key === " "){
-                                shortcutArray.push("Space");
-                            } else {
-                                shortcutArray.push(event.code.substring(3));
-                            }
+                            const key = event.code.startsWith("Key")
+                                ? event.code.substring(3)
+                                : event.code;
+                            shortcutArray.push(key);
                             updateShortcutPreference(shortcutArray);
                             hotkeys.unbind();
                         } else {
