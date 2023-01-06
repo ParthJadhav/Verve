@@ -1,8 +1,8 @@
 use chrono::{Local, TimeZone};
-use chrono_tz::OffsetName;
-use chrono_tz::Tz;
+use chrono_tz::{OffsetName, Tz};
+
 use num_format::SystemLocale;
-use smartcalc::*;
+use smartcalc::SmartCalc;
 
 pub fn calculate(input: &str) -> String {
     let locale = SystemLocale::default().unwrap();

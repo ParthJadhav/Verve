@@ -1,12 +1,18 @@
+#![warn(clippy::nursery, clippy::pedantic)]
+
 mod util;
+
 use tauri::{
     CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
 };
+
+#[allow(unused_imports)]
+use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
+
 use util::{
     convert_all_app_icons_to_png, create_preferences_if_missing, get_icon, handle_input,
     launch_on_login, open_command,
 };
-use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
 fn create_system_tray() -> SystemTray {
     let quit = CustomMenuItem::new("Quit".to_string(), "Quit");
@@ -21,6 +27,7 @@ fn create_system_tray() -> SystemTray {
         .add_item(quit);
     SystemTray::new().with_menu(tray_menu)
 }
+
 fn main() {
     convert_all_app_icons_to_png();
     create_preferences_if_missing();
