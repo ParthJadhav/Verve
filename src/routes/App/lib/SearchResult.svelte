@@ -148,6 +148,7 @@
   :global(.searchResultFocused) {
     background: var(--highlight-overlay) !important;
     outline: 0 !important;
+    border-radius: 8px;
   }
 
   .appIcon {
