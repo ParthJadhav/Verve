@@ -7,6 +7,7 @@
     };
 
     const searchResultClicked = async (event: any) => {
+        if (event.keyCode !== 13) return;
         await copyAnswer();
         const searchBarInput = document.getElementById(
             "searchBarInput"
