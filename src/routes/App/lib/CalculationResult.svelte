@@ -19,7 +19,7 @@
 </script>
 
 <div class="result">
-    <button class="calculation-button" id={results[0]} on:click={searchResultClicked}>
+    <button class="calculation-button" id={results[0]} on:keydown={searchResultClicked}>
         <p>{results[0]}</p>
     </button>
 </div>
