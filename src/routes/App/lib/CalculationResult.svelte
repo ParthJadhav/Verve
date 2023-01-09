@@ -7,6 +7,7 @@
     };
 
     const searchResultClicked = async (event: any) => {
+        if (event.keyCode !== 13) return;
         await copyAnswer();
         const searchBarInput = document.getElementById(
             "searchBarInput"
@@ -18,7 +19,7 @@
 </script>
 
 <div class="result">
-    <button class="calculation-button" id={results[0]} on:click={searchResultClicked}>
+    <button class="calculation-button" id={results[0]} on:keydown={searchResultClicked}>
         <p>{results[0]}</p>
     </button>
 </div>

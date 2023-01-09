@@ -6,6 +6,7 @@
   import { convertFileSrc } from "@tauri-apps/api/tauri";
   import { appWindow, LogicalSize } from "@tauri-apps/api/window";
   import { afterUpdate } from "svelte";
+  import { FALLBACK_ICON_SYMBOL, icons } from "../../../cache";
   import CalculationResult from "./CalculationResult.svelte";
 
   afterUpdate(async () => {
@@ -13,14 +14,27 @@
     await appWindow.setSize(new LogicalSize(750, height));
     if (results.length > 0 && results[0] !== "") {
       const firstResult = document.getElementById(results[0]);
+      firstResult.classList.add('searchResultFocused');
       await firstResult.focus();
     }
   });
 
   async function getIcon(app_name: string) {
-    const fallbackIcon = convertFileSrc(
-      await resolveResource("assets/default.svg")
-    );
+    let icon = icons.get(app_name);
+    let fallbackIcon = icons.get(FALLBACK_ICON_SYMBOL);
+
+    if (icon && fallbackIcon) {
+      return { icon, fallbackIcon };
+    }
+
+    if (!fallbackIcon) {
+      fallbackIcon = convertFileSrc(
+        await resolveResource("assets/default.svg")
+      );
+      icons.set(FALLBACK_ICON_SYMBOL, fallbackIcon);
+    }
+
+    let iconPath: string;
     if (
       [
         "Migration Assistant",
@@ -31,14 +45,17 @@
         "AirPort Utility",
       ].includes(app_name)
     ) {
-      const icon_path = await resolveResource(
+      iconPath = await resolveResource(
         `assets/appIcons/${app_name}.app.png`
       );
-      return { icon: convertFileSrc(icon_path), fallbackIcon };
+    } else {
+      const appDataDirPath = await appDataDir();
+      iconPath = await join(appDataDirPath, `appIcons/${app_name}.app.png`);
     }
-    const appDataDirPath = await appDataDir();
-    const filePath = await join(appDataDirPath, `appIcons/${app_name}.app.png`);
-    return { icon: convertFileSrc(filePath), fallbackIcon };
+
+    icon = convertFileSrc(iconPath);
+    icons.set(app_name, icon);
+    return { icon, fallbackIcon };
   }
 
   async function handleKeydown(event) {
@@ -58,6 +75,8 @@
         else newIndex = (currentIndex + 1) % items.length;
       }
       if (current !== null && items[newIndex] !== null) {
+        items[newIndex].classList.add('searchResultFocused');
+        current.classList.remove('searchResultFocused');
         current.blur();
         items[newIndex].focus();
       }
@@ -85,7 +104,9 @@
           {#await getIcon(result
               .split("/")
               .pop()
-              .replace(/.app$/, "")) then { icon, fallbackIcon }}
+              .replace(/.app$/, ""))}
+            <span class="appIcon"></span>
+          {:then {icon, fallbackIcon}}
             <img
               class="appIcon"
               src={icon}
@@ -123,12 +144,15 @@
     order: 1;
     flex-grow: 0;
   }
-  .searchResult:focus {
-    background: var(--highlight-overlay);
-    outline: 0;
+
+  :global(.searchResultFocused) {
+    background: var(--highlight-overlay) !important;
+    outline: 0 !important;
+    border-radius: 8px;
   }
 
   .appIcon {
+    display: inline-flex;
     width: 24px;
     height: 24px;
     margin-right: 8px;
