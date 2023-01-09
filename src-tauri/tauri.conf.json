@@ -81,7 +81,7 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": "default-src verve: asset: https://asset.localhost img-src: 'self'"
     },
     "updater": {
       "active": false
