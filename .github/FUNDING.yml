@@ -2,4 +2,8 @@
 
 github: [parthjadhav]
 ko_fi: parthjadhav
-custom: ["https://paypal.me/parthJadhav22", "https://www.buymeacoffee.com/Parthjadhav"]
+custom:
+  [
+    'https://paypal.me/parthJadhav22',
+    'https://www.buymeacoffee.com/Parthjadhav',
+  ]

@@ -1,10 +1,10 @@
 {
-    "primary_bg_color": "rgba(20, 20, 80, 0.6)",
-    "secondary_bg_color": "rgba(84, 101, 115, 0.6)",
-    "primary_text_color": "#FFFFFF",
-    "secondary_text_color": "#878787",
-    "primary_accent_color": "#556CE5",
-    "secondary_accent_color": "#48A5FF",
-    "highlight_overlay": "rgba(255, 255, 255, 0.1)",
-    "dark_overlay": "rgba(0, 0, 0, 0.1)"
+  "primary_bg_color": "rgba(20, 20, 80, 0.6)",
+  "secondary_bg_color": "rgba(84, 101, 115, 0.6)",
+  "primary_text_color": "#FFFFFF",
+  "secondary_text_color": "#878787",
+  "primary_accent_color": "#556CE5",
+  "secondary_accent_color": "#48A5FF",
+  "highlight_overlay": "rgba(255, 255, 255, 0.1)",
+  "dark_overlay": "rgba(0, 0, 0, 0.1)"
 }
