@@ -99,7 +99,7 @@
 <div class="searchResults">
   {#if results.length > 0 && results[0] !== ' '}
     {#if resultType !== 3}
-      {#each results.slice(0, 5) as result}
+      {#each results as result}
         <button on:click class="searchResult" id={result}>
           {#await getIcon(result.split('/').pop().replace(/.app$/, ''))}
             <span class="appIcon" />
@@ -124,6 +124,12 @@
 </div>
 
 <style>
+  .searchResults {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .searchResult {
     margin-top: 7px;
     margin-left: 12px;

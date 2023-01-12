@@ -97,7 +97,7 @@
 
 <style>
   .container {
-    height: 100%;
+    height: 350px;
     width: 750px;
     background-color: var(--primary-bg-color);
     border-radius: 10px;
