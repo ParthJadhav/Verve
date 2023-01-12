@@ -16,8 +16,8 @@ Verve is a lightweight and blazingly fast launcher for accessing and opening app
 <img src="./docs/preferences.png" alt="drawing" width="620"/>
 
 ## 🚀 Features
-<img src="https://user-images.githubusercontent.com/42001064/210351599-bc19bd5b-2872-4bed-80fc-b687508a6faa.png" alt="drawing" width="620"/>
 
+<img src="https://user-images.githubusercontent.com/42001064/210351599-bc19bd5b-2872-4bed-80fc-b687508a6faa.png" alt="drawing" width="620"/>
 
 ## 📥 Downloading
 

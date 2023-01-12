@@ -11,7 +11,9 @@
     "tauri": "tauri",
     "package-and-build-arm": "yarn tauri build --target aarch64-apple-darwin && rm -rf ./src-tauri/target/verve_aarch64.dmg && create-dmg --volname Verve --volicon './src-tauri/icons/icon.icns' --background './src/dmg-background.png' --window-pos 200 120 --window-size 653 380 --icon-size 115 --icon 'verve.app' 180 189 --hide-extension 'Verve.app' --app-drop-link 460 185 ./src-tauri/target/aarch64-apple-darwin/release/bundle/verve_aarch64.dmg ./src-tauri/target/aarch64-apple-darwin/release/bundle/macos/verve.app && mv ./src-tauri/target/aarch64-apple-darwin/release/bundle/verve_aarch64.dmg ./src-tauri/target/",
     "package-and-build-x86_64": "yarn tauri build --target x86_64-apple-darwin && rm -rf ./src-tauri/target/verve_x86_64.dmg && create-dmg --volname Verve --volicon './src-tauri/icons/icon.icns' --background './src/dmg-background.png' --window-pos 200 120 --window-size 653 380 --icon-size 115 --icon 'verve.app' 180 189 --hide-extension 'Verve.app' --app-drop-link 460 185 ./src-tauri/target/x86_64-apple-darwin/release/bundle/verve_x86_64.dmg ./src-tauri/target/x86_64-apple-darwin/release/bundle/macos/verve.app && mv ./src-tauri/target/x86_64-apple-darwin/release/bundle/verve_x86_64.dmg ./src-tauri/target/",
-    "package-and-build": "yarn package-and-build-arm && yarn package-and-build-x86_64 && open ./src-tauri/target/"
+    "package-and-build": "yarn package-and-build-arm && yarn package-and-build-x86_64 && open ./src-tauri/target/",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
   },
   "dependencies": {
     "@tauri-apps/api": "^1.1.0",
@@ -22,6 +24,8 @@
     "@tauri-apps/cli": "^1.1.0",
     "@tsconfig/svelte": "^3.0.0",
     "@types/node": "^18.7.10",
+    "prettier": "^2.8.2",
+    "prettier-plugin-svelte": "^2.9.0",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.0",
     "svelte-preprocess": "^4.10.7",
