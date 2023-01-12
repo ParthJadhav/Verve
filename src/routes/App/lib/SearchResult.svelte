@@ -19,7 +19,9 @@
     }
   });
 
-  async function getIcon(app_name: string) {
+  async function getIcon(
+    app_name: string
+  ): Promise<{ icon: string; fallbackIcon: string }> {
     let icon = icons.get(app_name);
     let fallbackIcon = icons.get(FALLBACK_ICON_SYMBOL);
 
