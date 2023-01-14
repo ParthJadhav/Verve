@@ -42,8 +42,20 @@ fn main() {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             let window = app.get_window("main").unwrap();
             #[cfg(target_os = "macos")]
-            apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
-                .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
+            {
+                use cocoa::appkit::NSWindow;
+                use cocoa::appkit::NSWindowCollectionBehavior;
+                use cocoa::base::id;
+                let ns_win = window.ns_window().unwrap() as id;
+                unsafe {
+                    let mut collection_behavior = ns_win.collectionBehavior();
+                    collection_behavior |=
+                        NSWindowCollectionBehavior::NSWindowCollectionBehaviorCanJoinAllSpaces;
+                    ns_win.setCollectionBehavior_(collection_behavior);
+                }
+                apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
+            }
+            .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
             window.hide().unwrap();
             Ok(())
         })

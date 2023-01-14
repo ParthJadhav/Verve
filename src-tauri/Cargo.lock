@@ -3247,6 +3247,7 @@ dependencies = [
  "auto-launch",
  "chrono",
  "chrono-tz",
+ "cocoa",
  "directories",
  "localzone",
  "num-format",
