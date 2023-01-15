@@ -32,10 +32,10 @@ pub fn search(
         .more_locations(more_locations.to_vec())
         .depth(depth.unwrap_or(1))
         .ext(extension.unwrap_or("*"))
-        .limit(5)
+        .limit(15)
         .ignore_case()
         .build()
         .collect();
     similarity_sort(&mut result, input);
-    return result;
+    result
 }
