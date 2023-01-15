@@ -32,6 +32,7 @@ pub fn search(
         .more_locations(more_locations.to_vec())
         .depth(depth.unwrap_or(1))
         .ext(extension.unwrap_or("*"))
+        .limit(15)
         .ignore_case()
         .build()
         .collect();
