@@ -28,16 +28,6 @@
     appState.settings = false;
   };
 
-  const searchResultClicked = async (event: any) => {
-    await invoke('open_command', { path: event.target.id });
-    const searchBarInput = document.getElementById(
-      'searchBarInput'
-    ) as HTMLInputElement;
-    results = [];
-    searchBarInput.value = '';
-    await appWindow.hide();
-  };
-
   const search = async (searchPrompt: string) => {
     footerText = 'Loading...';
     [results, executionTime, resultType] = await invoke('handle_input', {
@@ -85,7 +75,7 @@
     <!-- svelte-ignore empty-block -->
     {#await appWindow.setSize(new LogicalSize(750, 100))}{/await}
     <SearchBar on:input={handleInput} />
-    <SearchResult bind:results {resultType} on:click={searchResultClicked} />
+    <SearchResult bind:results {resultType} />
     <Footer {footerText} />
   {/if}
   {#if appState.settings}
