@@ -27,6 +27,7 @@ smartcalc = { git = "https://github.com/ParthJadhav/smartcalc", branch = "stable
 chrono-tz = { version = "0.6.1", default-features = false }
 num-format = { version = "0.4", features = ["with-system-locale"] }
 localzone = "0.2.0"
+cocoa = "0.24.1"
 
 [dependencies.chrono]
 version = "0.4"
