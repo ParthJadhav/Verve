@@ -39,12 +39,13 @@ fn main() {
             launch_on_login
         ])
         .setup(|app| {
+            #[cfg(target_os = "macos")]
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             let window = app.get_window("main").unwrap();
             #[cfg(target_os = "macos")]
             apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
                 .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
-            window.hide().unwrap();
+            // window.hide().unwrap();
             Ok(())
         })
         .system_tray(create_system_tray())

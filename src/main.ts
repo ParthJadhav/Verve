@@ -3,7 +3,7 @@ import "./style.css";
 import App from "./routes/App/App.svelte";
 import { appWindow } from "@tauri-apps/api/window";
 import { register } from '@tauri-apps/api/globalShortcut'
-import { appDataDir, join, resolveResource } from "@tauri-apps/api/path";
+import { appDataDir, join } from "@tauri-apps/api/path";
 import { readTextFile } from "@tauri-apps/api/fs";
 import { invoke } from "@tauri-apps/api/tauri";
 import { preferences, paths } from "./cache";
@@ -65,7 +65,7 @@ const reloadTheme = async () => {
 
 export async function listenForHotkey(shortcut: string) {
   await register(shortcut, async () => {
-    if (document.hasFocus()) {
+    if (await appWindow.isVisible()) {
       await appWindow.hide()
     } else {
       await appWindow.show();

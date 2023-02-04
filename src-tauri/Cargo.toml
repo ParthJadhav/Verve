@@ -27,6 +27,7 @@ smartcalc = { git = "https://github.com/ParthJadhav/smartcalc", branch = "stable
 chrono-tz = { version = "0.6.1", default-features = false }
 num-format = { version = "0.4", features = ["with-system-locale"] }
 localzone = "0.2.0"
+sys-locale = "0.2.3"
 
 [dependencies.chrono]
 version = "0.4"
@@ -34,7 +35,7 @@ version = "0.4"
 [features]
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
-default = [ "custom-protocol" ]
+default = ["custom-protocol"]
 # this feature is used used for production builds where `devPath` points to the filesystem
 # DO NOT remove this
-custom-protocol = [ "tauri/custom-protocol" ]
+custom-protocol = ["tauri/custom-protocol"]
