@@ -16,7 +16,8 @@
   let footerText: string = 'verve.app';
 
   document.onkeyup = function (event) {
-    if (event.metaKey && event.key === ',') {
+    if ((event.ctrlKey || event.metaKey) && event.key === ",") {
+      console.log("meta + ,");
       appState.app = false;
       appState.settings = true;
     }

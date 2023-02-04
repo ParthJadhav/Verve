@@ -1,4 +1,5 @@
-use directories::ProjectDirs;
+use tauri::api::path::app_data_dir;
+use tauri::Config;
 use plist::Value;
 use rust_search::SearchBuilder;
 use std::{
@@ -8,8 +9,8 @@ use std::{
 };
 
 fn convert_and_store_icons(icns_path: &str, app_name: &str) {
-    if let Some(proj_dirs) = ProjectDirs::from("com", "parth jadhav", "verve") {
-        let icon_dir = proj_dirs.config_dir().join("appIcons");
+    if let Some(proj_dirs) = app_data_dir(&Config::default()) {
+        let icon_dir = proj_dirs.join("com.parth-jadhav.verve/appIcons");
         if fs::create_dir_all(&icon_dir).is_ok() {
             let icns_path = Path::new(icns_path);
             let png_path = icon_dir.join(app_name.to_owned() + &".png");

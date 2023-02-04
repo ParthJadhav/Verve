@@ -1,13 +1,14 @@
 import './style.css';
 // @ts-ignore
-import App from './routes/App/App.svelte';
-import { appWindow } from '@tauri-apps/api/window';
-import { register } from '@tauri-apps/api/globalShortcut';
-import { appDataDir, join, resolveResource } from '@tauri-apps/api/path';
-import { readTextFile } from '@tauri-apps/api/fs';
-import { invoke } from '@tauri-apps/api/tauri';
-import { preferences, paths } from './cache';
-import { listen } from '@tauri-apps/api/event';
+
+import App from "./routes/App/App.svelte";
+import { appWindow } from "@tauri-apps/api/window";
+import { register } from '@tauri-apps/api/globalShortcut'
+import { appDataDir, join } from "@tauri-apps/api/path";
+import { readTextFile } from "@tauri-apps/api/fs";
+import { invoke } from "@tauri-apps/api/tauri";
+import { preferences, paths } from "./cache";
+import { listen } from '@tauri-apps/api/event'
 
 // Create the app
 const app = new App({
@@ -68,8 +69,8 @@ const reloadTheme = async () => {
 
 export async function listenForHotkey(shortcut: string) {
   await register(shortcut, async () => {
-    if (document.hasFocus()) {
-      await appWindow.hide();
+    if (await appWindow.isVisible()) {
+      await appWindow.hide()
     } else {
       await appWindow.show();
       await appWindow.center();
