@@ -4,10 +4,10 @@
   --highlight-overlay: rgba(255, 255, 255, 0.1);
   --dark-overlay: rgba(0, 0, 0, 0.1);
   --secondary-bg-color: rgba(84, 101, 115, 0.6);
-  --primary-text-color: #FFFFFF;
+  --primary-text-color: #ffffff;
   --secondary-text-color: #878787;
-  --primary-accent-color: #556CE5;
-  --secondary-accent-color: #48A5FF;
+  --primary-accent-color: #556ce5;
+  --secondary-accent-color: #48a5ff;
   font-synthesis: none;
   overflow: hidden;
   text-rendering: optimizeLegibility;

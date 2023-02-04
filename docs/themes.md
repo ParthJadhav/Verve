@@ -15,7 +15,6 @@ Download: [theme-blue.json](./themes/theme-blue/theme.json)
 
 ![Verve Dracula Theme](./themes/theme-green/theme-green.png)
 
-
 Download: [theme-green.json](./themes/theme-green/theme.json)
 
 ### Create your own theme

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { appWindow, LogicalSize } from "@tauri-apps/api/window";
-  import SearchBar from "./lib/SearchBar.svelte";
-  import Footer from "./lib/Footer.svelte";
-  import SearchResult from "./lib/SearchResult.svelte";
-  import Settings from "../Settings/Settings.svelte";
-  import { invoke } from "@tauri-apps/api/tauri";
+  import { appWindow, LogicalSize } from '@tauri-apps/api/window';
+  import SearchBar from './lib/SearchBar.svelte';
+  import Footer from './lib/Footer.svelte';
+  import SearchResult from './lib/SearchResult.svelte';
+  import Settings from '../Settings/Settings.svelte';
+  import { invoke } from '@tauri-apps/api/tauri';
 
   export let appState = {
     app: true,
@@ -13,7 +13,7 @@
   let results: string[] = [];
   let executionTime: number = 0;
   let resultType: number = 0;
-  let footerText: string = "verve.app";
+  let footerText: string = 'verve.app';
 
   document.onkeyup = function (event) {
     if ((event.ctrlKey || event.metaKey) && event.key === ",") {
@@ -29,50 +29,40 @@
     appState.settings = false;
   };
 
-  const searchResultClicked = async (event: any) => {
-    await invoke("open_command", { path: event.target.id });
-    const searchBarInput = document.getElementById(
-      "searchBarInput"
-    ) as HTMLInputElement;
-    results = [];
-    searchBarInput.value = "";
-    await appWindow.hide();
-  };
-
   const search = async (searchPrompt: string) => {
-    footerText = "Loading...";
-    [results, executionTime, resultType] = await invoke("handle_input", {
+    footerText = 'Loading...';
+    [results, executionTime, resultType] = await invoke('handle_input', {
       input: searchPrompt,
     });
     if (results.length === 0) {
-      footerText = "No results found";
+      footerText = 'No results found';
       return;
     }
     if (resultType === 3) {
-      footerText = "Copy Answer ⏎";
+      footerText = 'Copy Answer ⏎';
       return;
     }
     footerText = `~ ${Math.floor(executionTime * 1000)} ms`;
   };
 
-  document.addEventListener("keydown", async (event: any) => {
+  document.addEventListener('keydown', async (event: any) => {
     if (event.keyCode == 13) {
       event.preventDefault();
-      if (event.target?.value?.startsWith("/")) {
+      if (event.target?.value?.startsWith('/')) {
         search(event.target.value);
       }
     }
   });
 
   const handleInput = async (event: any) => {
-    if (event.target.value === "") {
+    if (event.target.value === '') {
       results = [];
-      footerText = "verve.app";
+      footerText = 'verve.app';
       return;
     }
-    if (event.target.value.startsWith("/")) {
+    if (event.target.value.startsWith('/')) {
       // this signifies a full drive search. Searches in /Users folder
-      footerText = "Press Enter to search";
+      footerText = 'Press Enter to search';
       return;
     }
     search(event.target.value);
@@ -86,7 +76,7 @@
     <!-- svelte-ignore empty-block -->
     {#await appWindow.setSize(new LogicalSize(750, 100))}{/await}
     <SearchBar on:input={handleInput} />
-    <SearchResult bind:results {resultType} on:click={searchResultClicked} />
+    <SearchResult bind:results {resultType} />
     <Footer {footerText} />
   {/if}
   {#if appState.settings}
