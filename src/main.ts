@@ -43,6 +43,8 @@ const reloadTheme = async () => {
   await fetchPreferencesData();
   await reloadTheme();
 
+  await invoke("init_ns_panel", {shortcut: preferences.get('shortcut')});
+
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       appWindow.hide();
@@ -62,8 +64,6 @@ const reloadTheme = async () => {
   await invoke('launch_on_login', {
     enable: preferences.get('launch_on_login'),
   });
-
-  await listenForHotkey(preferences.get('shortcut'));
 })();
 
 export async function listenForHotkey(shortcut: string) {

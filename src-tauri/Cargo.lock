@@ -1772,6 +1772,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "objc-foundation"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1add1b659e36c9607c7aab864a76c7a4c2760cd0cd2e120f3fb8b952c7e22bf9"
+dependencies = [
+ "block",
+ "objc",
+ "objc_id",
+]
+
+[[package]]
 name = "objc_exception"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2661,6 +2672,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "sys-locale"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3358acbb4acd4146138b9bda219e904a6bb5aaaa237f8eed06f4d6bc1580ecee"
+dependencies = [
+ "js-sys",
+ "libc",
+ "wasm-bindgen",
+ "web-sys",
+ "winapi",
+]
+
+[[package]]
 name = "system-deps"
 version = "5.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3247,15 +3271,22 @@ dependencies = [
  "auto-launch",
  "chrono",
  "chrono-tz",
+ "cocoa",
+ "core-foundation",
+ "core-graphics",
  "directories",
  "localzone",
  "num-format",
+ "objc",
+ "objc-foundation",
+ "objc_id",
  "plist",
  "rust_search",
  "serde",
  "serde_json",
  "smartcalc",
  "strsim",
+ "sys-locale",
  "tauri",
  "tauri-build",
  "window-vibrancy",
@@ -3343,6 +3374,16 @@ name = "wasm-bindgen-shared"
 version = "0.2.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1c38c045535d93ec4f0b4defec448e4291638ee608530863b1e2ba115d4fff7f"
+
+[[package]]
+name = "web-sys"
+version = "0.3.60"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bcda906d8be16e728fd5adc5b729afad4e444e106ab28cd1c7256e54fa61510f"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+]
 
 [[package]]
 name = "webkit2gtk"
