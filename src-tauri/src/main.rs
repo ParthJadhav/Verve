@@ -1,6 +1,7 @@
 #![warn(clippy::nursery, clippy::pedantic)]
 
 mod util;
+mod ns_panel;
 
 use tauri::{
     CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
@@ -36,7 +37,10 @@ fn main() {
             open_command,
             get_icon,
             handle_input,
-            launch_on_login
+            launch_on_login,
+            ns_panel::init_ns_panel,
+            ns_panel::show_app,
+            ns_panel::hide_app
         ])
         .setup(|app| {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
@@ -47,6 +51,7 @@ fn main() {
             window.hide().unwrap();
             Ok(())
         })
+        .manage(ns_panel::State::default())
         .system_tray(create_system_tray())
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
