@@ -30,6 +30,7 @@ pub async fn handle_input(input: String) -> (Vec<String>, f32, i32) {
         result = search(
             input.as_str(),
             vec![
+                "~/Applications",
                 "/Applications",
                 "/System/Applications",
                 "/System/Applications/Utilities",
