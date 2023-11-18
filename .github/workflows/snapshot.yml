@@ -1,0 +1,51 @@
+name: Snapshot
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - master
+
+jobs:
+  snapshot:
+    name: Snapshot
+    runs-on: macos-12
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Rust setup
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          echo "${HOME}/.cargo/bin" >> $GITHUB_PATH
+
+          rustc --version
+      - name: NodeJS setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Create DMG setup
+        run: |
+          git clone --depth 1 --branch v1.2.1 https://github.com/create-dmg/create-dmg.git /tmp/create-dmg
+          cd /tmp/create-dmg
+          make install
+      #
+      #
+      - name: Snapshot
+        run: |
+          rustup target add aarch64-apple-darwin
+          rustup target add x86_64-apple-darwin
+
+          yarn install
+          yarn package-and-build
+      #
+      #
+      - name: Publish artifacts aarch64
+        uses: actions/upload-artifact@v3
+        with:
+          path: src-tauri/target/verve_aarch64.dmg
+          name: verve_aarch64.dmg
+      - name: Publish artifacts x86_64
+        uses: actions/upload-artifact@v3
+        with:
+          path: src-tauri/target/verve_x86_64.dmg
+          name: verve_x86_64.dmg
