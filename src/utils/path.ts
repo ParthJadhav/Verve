@@ -1,5 +1,5 @@
 const getFileName = (path: string) => {
-  return path.split('/').pop();
+  return path.split('/').pop() ?? path;
 };
 
 const getTruncatedFilePath = (path: string) => {

@@ -1,14 +1,14 @@
 <script lang="ts">
   import { getFileName, getTruncatedFilePath } from '../../../utils/path';
   import { getIcon } from '../../../utils/icon';
-  export let filePath;
+  export let filePath: string;
   export let resultType: number;
 </script>
 
 <button on:click class="searchResult" id={filePath}>
   <div class="resultContent">
     {#await getIcon(getFileName(filePath).replace(/.app$/, ''))}
-      <span class="icon" />
+      <span class="icon"></span>
     {:then { icon, fallbackIcon }}
       <img
         class="icon"

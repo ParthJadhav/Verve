@@ -6,7 +6,7 @@
 
 <label class="switch">
   <input type="checkbox" {id} bind:checked={isChecked} on:click={onToggle} />
-  <span class="slider round" />
+  <span class="slider round"></span>
 </label>
 
 <style>

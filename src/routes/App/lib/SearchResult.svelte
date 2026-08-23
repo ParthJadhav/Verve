@@ -9,12 +9,14 @@
   import FileSearchResult from './FileSearchResult.svelte';
 
   afterUpdate(async () => {
-    const height = document.getElementsByClassName('container')[0].clientHeight;
+    const container = document.querySelector<HTMLElement>('.container');
+    if (!container) return;
+    const height = container.clientHeight;
     await appWindow.setSize(new LogicalSize(750, height));
     if (results.length > 0 && results[0] !== '') {
       const firstResult = document.getElementById(results[0]);
-      firstResult.classList.add('searchResultFocused');
-      await firstResult.focus();
+      firstResult?.classList.add('searchResultFocused');
+      firstResult?.focus();
     }
   });
 
@@ -28,14 +30,13 @@
     await appWindow.hide();
   };
 
-  async function handleKeydown(event) {
+  async function handleKeydown(event: KeyboardEvent) {
     if (event.keyCode == 38 || event.keyCode == 40) {
       const current = document.activeElement as HTMLElement | null;
-      const items = [...document.getElementsByClassName('searchResult')] as
-        | HTMLElement[]
-        | null;
-      const currentIndex = items.indexOf(current);
-      let newIndex;
+      const items = [...document.getElementsByClassName('searchResult')] as HTMLElement[];
+      if (items.length === 0) return;
+      const currentIndex = current ? items.indexOf(current) : -1;
+      let newIndex: number;
 
       if (currentIndex === -1) {
         newIndex = 0;
@@ -44,11 +45,12 @@
           newIndex = (currentIndex + items.length - 1) % items.length;
         else newIndex = (currentIndex + 1) % items.length;
       }
-      if (current !== null && items[newIndex] !== null) {
-        items[newIndex].classList.add('searchResultFocused');
+      const nextItem = items[newIndex];
+      if (current !== null && nextItem) {
+        nextItem.classList.add('searchResultFocused');
         current.classList.remove('searchResultFocused');
         current.blur();
-        items[newIndex].focus();
+        nextItem.focus();
       }
     } else if (event.key == 'Enter') {
       const current = document.activeElement as HTMLElement | null;
@@ -59,7 +61,7 @@
       const searchBarInput = document.getElementById(
         'searchBarInput'
       ) as HTMLInputElement | null;
-      searchBarInput.focus();
+      searchBarInput?.focus();
     }
   }
 </script>

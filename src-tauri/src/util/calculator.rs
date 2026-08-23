@@ -1,11 +1,21 @@
 use chrono::{Local, TimeZone};
 use chrono_tz::{OffsetName, Tz};
 
-use num_format::SystemLocale;
+use num_format::Locale;
 use smartcalc::SmartCalc;
 
 pub fn calculate(input: &str) -> String {
-    let locale = SystemLocale::default().unwrap();
+    let locale_name = sys_locale::get_locale().unwrap_or_else(|| "en".to_string());
+    let locale = Locale::from_name(&locale_name)
+        .or_else(|_| {
+            Locale::from_name(
+                locale_name
+                    .split(['-', '_'])
+                    .next()
+                    .unwrap_or("en"),
+            )
+        })
+        .unwrap_or(Locale::en);
     let timezone = match localzone::get_local_zone() {
         Some(tz) => match tz.parse::<Tz>() {
             Ok(tz) => {

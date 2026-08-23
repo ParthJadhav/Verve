@@ -5,7 +5,7 @@
   import { resolveResource } from '@tauri-apps/api/path';
   import { convertFileSrc } from '@tauri-apps/api/tauri';
 
-  const getIconPath = async iconName => {
+  const getIconPath = async (iconName: string) => {
     const icon_path = await resolveResource(`assets/${iconName}.svg`);
     return convertFileSrc(icon_path);
   };

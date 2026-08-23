@@ -10,8 +10,10 @@ import { preferences, paths } from './cache';
 import { listen } from '@tauri-apps/api/event';
 
 // Create the app
+const target = document.getElementById('app');
+if (!target) throw new Error('Missing #app mount target');
 const app = new App({
-  target: document.getElementById('app'),
+  target,
 });
 
 const fetchPreferencesData = async () => {
@@ -74,7 +76,7 @@ export async function listenForHotkey(shortcut: string) {
       await appWindow.show();
       await appWindow.center();
       await appWindow.setFocus();
-      document.getElementById('searchBarInput').focus();
+      document.getElementById('searchBarInput')?.focus();
     }
   });
 }

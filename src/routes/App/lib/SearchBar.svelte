@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  let element;
+  let element: HTMLInputElement;
   onMount(function () {
     element.focus();
   });
