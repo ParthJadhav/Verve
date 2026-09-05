@@ -102,3 +102,7 @@ Checkout [Issues section](https://github.com/ParthJadhav/verve/issues) to find o
 ## 📝 License
 
 Verve is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE. See the [LICENSE file](./LICENCE) for more information.
+
+## Author
+
+Created by [Parth Jadhav](https://www.parthjadhav.com/).
